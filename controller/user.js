@@ -62,7 +62,7 @@ class User extends Base {
     res.json({
       code: content.code,
       success: content.success,
-      content: content.success ? content.content[0] : content.content,
+      content: content.success ? this.camelizeKeys(content.content[0]) : content.content,
       message: content.message
     })
   }

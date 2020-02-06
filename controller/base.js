@@ -28,9 +28,13 @@ class Base {
   getClientDevice (req) {
     return req.headers['user-agent'] || '';
   }
-  // 格式化字段
-  formatField (parameter) {
+  // 格式化字段 将驼峰更改为下划线
+  decamelizeKeys (parameter) {
     return humps.decamelizeKeys(parameter);
+  }
+  // 格式化字段 将下划线更改为驼峰
+  camelizeKeys (parameter) {
+    return humps.camelizeKeys(parameter);
   }
   // 获取用户信息
   async getUserInfo (req) {

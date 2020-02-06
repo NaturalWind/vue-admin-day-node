@@ -54,7 +54,7 @@ class Menu extends Base {
       try {
         let data = JSON.parse(JSON.stringify(req.body));
         delete data.id;
-        await MenuModel.editRow(this.formatField(data), req.body.id);
+        await MenuModel.editRow(this.decamelizeKeys(data), req.body.id);
       } catch (error) {
         this.exceptionAction(req, res, error);
         return;
@@ -123,7 +123,7 @@ class Menu extends Base {
     res.json({
       code: 200,
       success: true,
-      content: query[0] || {},
+      content: query[0] ? this.camelizeKeys(query[0]) : {},
       message: '获取成功！'
     })
   }
@@ -142,7 +142,7 @@ class Menu extends Base {
     res.json({
       code: 200,
       success: true,
-      content: query,
+      content: this.camelizeKeys(query),
       message: '获取成功！'
     })
   }
