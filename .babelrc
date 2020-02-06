@@ -1,0 +1,17 @@
+{
+  "plugins": [],
+  "presets": [
+    ["env", {
+      "targets": {
+        "node": "current"
+      },
+      "modules": "commonjs",
+      "debug": false, 
+      "include": [],
+      "exclude": [],
+      "useBuiltIns": false
+      }
+    ],
+    "stage-0"
+  ]
+}
