@@ -38,6 +38,21 @@ class User extends Base {
     }
     next();
   }
+  update (req, res, next) {
+    let arr = [
+      { label: 'id', value: req.body.id, rules: ['notNull'] }
+    ];
+    let result = super.check(arr);
+    if (!result.success) {
+      res.json({
+        code: 602,
+        success: false,
+        message: result.message
+      })
+      return;
+    }
+    next();
+  }
 }
 
 export default new User();

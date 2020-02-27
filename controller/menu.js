@@ -23,7 +23,7 @@ class Menu extends Base {
         show_parent_menu: req.body.showParentMenu,
         is_jump: req.body.isJump,
         create_user: req.body.createUser,
-        create_time: new Date()
+        create_time: req.body.createTime
       };
       await MenuModel.setRow(data);
     } catch (error) {

@@ -8,6 +8,9 @@ class User extends Base {
   getRow (parameter) {
     let sql;
     switch (parameter.type) {
+      case 'id':
+        sql = `select * from day_user where 1=1 and id='${parameter.data.id}';`;
+        break;
       case 'account':
         sql = `select * from day_user where 1=1 and account='${parameter.data.account}';`;
         break;

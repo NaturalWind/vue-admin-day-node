@@ -8,6 +8,7 @@ class User extends Base {
     this.registered = this.registered.bind(this);
     this.userInfo = this.userInfo.bind(this);
     this.changePwd = this.changePwd.bind(this);
+    this.update = this.update.bind(this);
   }
   async registered (req, res, next) {
     let query = [];
@@ -101,6 +102,42 @@ class User extends Base {
         obj.message = '密码错误';
       }
       res.json(obj);
+    }
+  }
+  async update (req, res, next) {
+    let query = [];
+    try {
+      let obj = {
+        type: 'id',
+        data: {
+          id: req.body.id
+        }
+      };
+      query = await UserModel.getRow(obj);
+    } catch (error) {
+      this.exceptionAction(req, res, error);
+      return;
+    }
+    if (query.length !== 0) {
+      try {
+        let data = JSON.parse(JSON.stringify(req.body));
+        delete data.id;
+        await UserModel.editRow(this.decamelizeKeys(this.filterNull(data)), req.body.id);
+      } catch (error) {
+        this.exceptionAction(req, res, error);
+        return;
+      }
+      res.json({
+        code: 200,
+        success: true,
+        message: '更新成功！'
+      })
+    } else {
+      res.json({
+        code: 604,
+        success: false,
+        message: '更新失败，数据不存在！'
+      })
     }
   }
 }

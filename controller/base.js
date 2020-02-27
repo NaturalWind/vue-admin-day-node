@@ -36,6 +36,19 @@ class Base {
   camelizeKeys (parameter) {
     return humps.camelizeKeys(parameter);
   }
+  // 过滤空字段
+  filterNull (parameter) {
+    let obj = JSON.parse(JSON.stringify(parameter));
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        const item = obj[key];
+        if (item === null) {
+          delete obj[key];
+        }
+      }
+    }
+    return obj;
+  }
   // 获取用户信息
   async getUserInfo (req) {
     let userId = null;
